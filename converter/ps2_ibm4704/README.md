@@ -18,7 +18,7 @@ This converter currently only supports rev1 TMK with atmega32u4
 
     $ make -f Makefile.rev1
 
-The USB connector can be used to debug the converted with hid_listen, but you have to uncomment this in lufa.c:
+The USB connector can be used to debug the converter with hid_listen, but you have to uncomment this in lufa.c:
 
     //USB_Init();
 
