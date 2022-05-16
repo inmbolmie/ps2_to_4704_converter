@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ps2.h"
 #include "host.h"
 #include "led.h"
-#include "../ibm4704_interface.h"
 #include "matrix.h"
 
 
