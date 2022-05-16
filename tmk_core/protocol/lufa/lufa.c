@@ -712,7 +712,7 @@ static void setup_usb(void)
     // Leonardo needs. Without this USB device is not recognized.
     USB_Disable();
 
-    USB_Init();
+    //USB_Init();
 }
 
 int main(void)  __attribute__ ((weak));
