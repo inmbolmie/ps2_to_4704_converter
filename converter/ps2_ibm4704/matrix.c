@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "action_layer.h"
 #include "unimap_trans.h"
+#include "timer.h"
 
 
 static void matrix_make(uint8_t code);
@@ -54,6 +55,11 @@ static uint8_t matrix[MATRIX_ROWS];
 #define ROW(code)      ((code>>3)&0x0f)
 #define COL(code)      (code&0x07)
 
+
+ISR(TIMER0_COMPA_vect, ISR_NOBLOCK)
+{
+    timer_count++;
+}
 
 uint8_t ibm4704_send_proxy(uint8_t code) {
   return ibm4704_send(code);
@@ -143,6 +149,8 @@ void matrix_clear(void)
 
 bool hook_process_action(keyrecord_t *record) {
 
+  
+
   if (!IS_NOEVENT(record->event)) {
     print("PROCESS EVENT ");
     action_t action = layer_switch_get_action(record->event);
@@ -190,6 +198,32 @@ bool hook_process_action(keyrecord_t *record) {
       } else {
         scancode = 0x3F;
         print("ALT RELEASED\n");
+      }
+    }
+
+
+    //Check if RCTRL.
+    //TBD: No idea here how to properly manage through "unimap" and that stuff
+    if (!found && (action.key.code == KC_RCTRL || action.key.code == KC_RCTRL)) {
+      if (record->event.pressed ) {
+        scancode = 0x2F;
+        print("ENTER PRESSED\n");
+        found = true;
+      } else {
+        print("ENTER RELEASED\n");
+      }
+    }
+
+
+
+    //Check if LCTRL.
+    if (!found && (action.key.code == KC_LCTRL || action.key.code == KC_LCTRL)) {
+      if (record->event.pressed ) {
+        scancode = 0x31;
+        print("RESET PRESSED\n");
+        found = true;
+      } else {
+        print("RESET RELEASED\n");
       }
     }
 

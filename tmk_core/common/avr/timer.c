@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 
 
+
 // counter resolution 1ms
 // NOTE: union { uint32_t timer32; struct { uint16_t dummy; uint16_t timer16; }}
 volatile uint32_t timer_count = 0;
@@ -115,7 +116,7 @@ uint32_t timer_elapsed32(uint32_t last)
 }
 
 // excecuted once per 1ms.(excess for just timer count?)
-ISR(TIMER0_COMPA_vect, ISR_NOBLOCK)
-{
-    timer_count++;
-}
+//ISR(TIMER0_COMPA_vect, ISR_NOBLOCK)
+//{
+//    timer_count++;
+//}

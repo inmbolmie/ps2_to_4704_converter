@@ -1,0 +1,135 @@
+KEY SCAN CODES (327x)
+
+Key          Scancode
+
+a         		03
+b         		43
+c         		23
+d         		63
+e         		13
+f         		53
+g         		33
+h         		73
+i         		0B
+J         		4B
+k         		2B
+l         		6B
+m         		1B
+n         		5B
+o         		3B
+P         		7B
+q         		07
+r         		47
+s         		27
+t         		67
+u         		17
+v         		57
+w         		37
+x         		77
+y         		0F
+z         		4F
+PF1       		79,42,F9
+PF2       		79,22,F9
+PF3       		79,62,F9
+PF4       		79,12,F9
+PF5       		79,52,F9
+FF6       		79,32,F9
+PF7       		79,72,F9
+PF8       		79,0A,F9
+PF9       		79,4A,F9
+PF10      		79,02,F9
+PF11      		79,06,F9
+PF12      		79,44,F9
+PF13      		01
+PF14      		41
+PF15      		21
+PF16      		61
+PF17      		11
+PF18      		51
+PF19      		31
+PF20      		71
+PF21      		09
+PF22      		49
+PF23      		29
+PF24      		69
+PA1       		79,7D,F9
+PA2       		79,3D,F9
+PA3       		79,18,F9
+'         		24
+;         		3F
+/         		14
+-         		06
+0         		02
+1         		42
+2         		22
+3         		62
+4         		12
+5         		52
+6         		32
+7         		72
+8         		0A
+9         		4A
+=         		44
+,         		66
+.         		26
+\         		54
+Attn      		05
+Sys Req   		79,05,F9
+Cursor    		45
+Clear     		79,45,F9
+Erase     		65
+Blink     		15
+Erase EOF 		55
+Print     		35
+Click     		75
+Return    		08
+Up        		38
+Down      		64
+Left      		34
+Right     		2C
+Dup       		7D
+Mark      		3D
+Del       		58
+Reset     		16
+Enter     		0C
+Space     		04
+Shift down		59
+Shift up  		D9
+Alt down  		79
+Alt up    		F9
+Tab fwd   		36
+Tab bkwd  		56
+Home      		79,56,F9
+Backspace 		46
+<         		48
+Rshift down		39
+Rshift up		B9
+Caps down		19
+Caps up			99		
+
+Dubious
+\~      		5E
+ç??       		6C
+{       		78
+<EMPTY>			25
+
+
+Non-dedicated-Shifted-Keys          Scancode
+
+)         		59,02,D9
+!         		59,42,D9
+@         		59,22,D9
+#         		59,62,D9
+$         		59,12,D9
+%         		59,52,D9
+^         		59,32,D9
+&         		59,72,D9
+*         		59,0A,D9
+(         		59,4A,D9
+"         		59,24,D9
+:         		59,3F,D9
+?         		59,14,D9
+Underscore		59,06,D9
++         		59,44,D9
+|         		59,54,D9
+>         		59,48,D9

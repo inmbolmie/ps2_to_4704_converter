@@ -1,5 +1,5 @@
 # Target file name (without extension).
-TARGET ?= ps2_ibm4704
+TARGET ?= ibmpc_ibm5251
 
 # Directory common source filess exist
 TMK_DIR ?= ../../tmk_core
@@ -8,23 +8,22 @@ TMK_DIR ?= ../../tmk_core
 TARGET_DIR ?= .
 
 # project specific files
+#SRC ?=	protocol/ibmpc.c \
+#	ibmpc_usb.c
+# project specific files
 SRC ?=	\
-        matrix.c \
-	led.c \
-	protocol/ibm4704_reversed.c \
-	ps2/matrix.c \
-	ps2/led.c \
-	protocol/ps2_interrupt.c \
-	ps2/unimap_plain.c
-
+	matrix.c \
+	protocol/ibm5251_reversed.c \
+	protocol/ibmpc.cpp \
+	ibmpc/ibmpc_usb.cpp \
+	ibmpc/unimap_plain.c
 
 
 CONFIG_H ?= config.h
 
 
 # MCU name
-# TMK Converter rev.2
-MCU ?= atmega32u2
+MCU ?= atmega32u4
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -59,10 +58,9 @@ ARCH ?= AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB ?= $(F_CPU)
 
-# TODO: This can prevent converter ISR from handling signal instantly, better remove it.
-# Without this option debug prints from enable_break() won't be displayed comopletely.
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+# This improves response of keyboard when wakeup
+OPT_DEFS += -DSUSPEND_MODE_STANDBY
 
 # Boot Section Size in *bytes*
 #   Teensy halfKay   512
@@ -70,19 +68,61 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-BOOTLOADER_SIZE ?= 4096
-OPT_DEFS += -DBOOTLOADER_SIZE=$(BOOTLOADER_SIZE)
+# Bootloader size can be calculated from fuse bits
+#BOOTLOADER_SIZE ?= 4096
+#OPT_DEFS += -DBOOTLOADER_SIZE=$(BOOTLOADER_SIZE)
 
 
 # Build Options
 #   comment out to disable the options.
 #
-BOOTMAGIC_ENABLE ?= no	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
-CONSOLE_ENABLE ?= yes	# Console for debug(+400)
-COMMAND_ENABLE ?= yes	# Commands for debug and configuration
-NKRO_ENABLE ?= no	# USB Nkey Rollover
+BOOTMAGIC_ENABLE ?= no	# Virtual DIP switch configuration(+1150)
+MOUSEKEY_ENABLE ?= no	# Mouse keys(+2200)
+EXTRAKEY_ENABLE ?= no	# Audio control and System control(+400)
+CONSOLE_ENABLE ?= yes	# Console for debug(+4150)
+COMMAND_ENABLE ?= no	# Commands for debug and configuration(+3600)
+NKRO_ENABLE ?= no	# USB Nkey Rollover(+350)
+
+KEYMAP_SECTION_ENABLE ?= yes
+UNIMAP_ENABLE ?= yes
+
+
+# IBMPC Options
+IBMPC_SECONDARY ?= no		# enable secondary interface(+800)
+IBMPC_MOUSE_ENABLE ?= no	# enable mouse support(+2000)
+
+
+# Optimize size but this may cause error "relocation truncated to fit"
+#EXTRALDFLAGS = -Wl,--relax
+
+
+#
+# Keymap file
+#
+ifdef UNIMAP_ENABLE
+    KEYMAP_FILE = unimap
+else
+    ifdef ACTIONMAP_ENABLE
+	KEYMAP_FILE = actionmap
+    else
+	KEYMAP_FILE = keymap
+    endif
+endif
+ifdef KEYMAP
+    SRC := $(KEYMAP_FILE)_$(KEYMAP).c $(SRC)
+else
+    SRC := $(KEYMAP_FILE)_plain.c $(SRC)
+endif
+
+
+ifeq (yes,$(strip $(IBMPC_SECONDARY)))
+    OPT_DEFS += -DIBMPC_SECONDARY
+endif
+
+ifeq (yes,$(strip $(IBMPC_MOUSE_ENABLE)))
+    OPT_DEFS += -DIBMPC_MOUSE_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
+endif
 
 
 # Search Path
